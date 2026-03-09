@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G&G ACOFIN | Legal, Contable, Tech & Creativo</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0f172a',
+                            gold: '#d4af37',
+                            light: '#f8fafc',
+                            muted: '#64748b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .filter-btn { transition: all 0.3s ease; }
+        .filter-btn.active { background-color: #0f172a; color: #d4af37; border-color: #0f172a; }
+
+        .service-card-anim {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+        }
+
+        /* Scrollbar Personalizado */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-inline { background: #d4af37; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-navy">
+
+    <nav class="fixed w-full z-50 glass-panel transition-all duration-300 py-4" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-12">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif font-black text-2xl tracking-tight text-brand-navy">
+                        G&G<span class="text-brand-gold text-3xl leading-none">.</span><span class="font-sans font-light text-xl tracking-widest text-gray-500 ml-1">ACOFIN</span>
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#vision" class="text-sm font-medium text-gray-600 hover:text-brand-gold transition-colors">La Visión</a>
+                    <a href="#explorador" class="text-sm font-medium text-gray-600 hover:text-brand-gold transition-colors">Catálogo de Servicios</a>
+                    <a href="#paquetes" class="text-sm font-medium text-gray-600 hover:text-brand-gold transition-colors">Soluciones Integrales</a>
+                    <a href="#contacto" class="bg-brand-navy text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-brand-gold transition-colors shadow-md">Agendar Cita</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-navy focus:outline-none p-2" aria-label="Abrir menú móvil" aria-expanded="false" aria-controls="mobile-menu">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg left-0 top-full">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#vision" class="mobile-link block px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-gold">La Visión</a>
+                <a href="#explorador" class="mobile-link block px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-gold">Catálogo de Servicios</a>
+                <a href="#paquetes" class="mobile-link block px-3 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-gold">Soluciones Integrales</a>
+                <a href="#contacto" class="mobile-link block mt-4 text-center bg-brand-navy text-white px-3 py-3 rounded-md text-base font-medium hover:bg-brand-gold">Agendar Cita</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-bg relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 bg-brand-navy/60"></div>
+        <div class="absolute inset-0 opacity-20 background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left flex flex-col lg:flex-row items-center">
+            <div class="w-full lg:w-3/5 lg:pr-12" data-aos="fade-right">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold tracking-widest uppercase mb-6 border border-brand-gold/30">
+                    Auditores · Abogados · Agencia Tech
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
+                    Blindaje Legal, Financiero y <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-200">Publicidad Digital</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-10 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    La primera firma en El Salvador que une la rigurosidad de un Despacho Jurídico-Contable con la innovación de una Agencia de Software y Producción Audiovisual. Crecimiento innovador, protegido por la ley.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button onclick="document.getElementById('explorador').scrollIntoView()" class="bg-brand-gold text-brand-navy px-8 py-4 rounded-md font-bold text-lg hover:bg-yellow-400 transition-all shadow-lg text-center">
+                        Explorar Servicios
+                    </button>
+                    <a href="#contacto" class="bg-transparent border border-gray-400 text-white px-8 py-4 rounded-md font-medium text-lg hover:bg-white/10 transition-all text-center">
+                        Auditoría de Activos Digitales
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex w-full lg:w-2/5 justify-end" data-aos="fade-left" data-aos-delay="200">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-2xl max-w-sm w-full">
+                    <div class="text-brand-gold text-4xl mb-4"><i class="fas fa-shield-halved"></i></div>
+                    <h3 class="text-white text-xl font-bold font-serif mb-2">Crecimiento Seguro</h3>
+                    <p class="text-gray-300 text-sm mb-6">Integramos sus contratos comerciales, cumplimiento tributario y desarrollo de software bajo un mismo techo.</p>
+                    <ul class="space-y-3 text-sm text-gray-200">
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-3"></i> Ley de Protección de Datos</li>
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-3"></i> Ley de Comercio Electrónico</li>
+                        <li class="flex items-center"><i class="fas fa-check text-brand-gold mr-3"></i> Propiedad Intelectual Asegurada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="vision" class="py-20 bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-16 text-center max-w-3xl mx-auto" data-aos="fade-up">
+                    <h2 class="text-brand-gold font-bold tracking-wider uppercase text-sm mb-2">Nuestro Modelo</h2>
+                    <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-4">La Tríada Operativa G&G</h3>
+                    <p class="text-brand-muted text-lg">
+                        Centralizamos tres pilares críticos. A diferencia de agencias aisladas, garantizamos que su innovación tecnológica y publicitaria nazca protegida por la ley y la correcta tributación.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-gold/50 hover:shadow-xl transition-all group cursor-default" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-14 h-14 bg-brand-navy rounded-lg flex items-center justify-center text-brand-gold text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                            <i class="fas fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-navy mb-3">Legal, Fiscal & Contable</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Nuestro núcleo histórico. Representación ante DGII, constitución de sociedades, gestión de inmuebles, sucesiones, notariado general y cumplimiento de la Ley de Comercio Electrónico.
+                        </p>
+                    </div>
+                    
+                    <div class="p-8 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-gold/50 hover:shadow-xl transition-all group cursor-default" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-14 h-14 bg-brand-navy rounded-lg flex items-center justify-center text-brand-gold text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-navy mb-3">Tech & Software</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Desarrollo de ecosistemas transaccionales, e-commerce y automatización. Entregamos código escalable asegurando que la arquitectura soporte los requerimientos del Ministerio de Hacienda.
+                        </p>
+                    </div>
+                    
+                    <div class="p-8 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-gold/50 hover:shadow-xl transition-all group cursor-default" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-14 h-14 bg-brand-navy rounded-lg flex items-center justify-center text-brand-gold text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-brand-navy mb-3">Agencia Creativa</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Producción audiovisual high-end y gestión de redes sociales. Todo el contenido y colaboraciones con influencers se genera bajo estrictos controles de propiedad intelectual y cesión de derechos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="explorador" class="py-20 bg-brand-light border-y border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 text-center max-w-4xl mx-auto" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy mb-4">Catálogo de Servicios Integrados</h2>
+                    <p class="text-brand-muted text-lg">
+                        Explore nuestra oferta completa. Utilice los filtros para navegar entre nuestras áreas de práctica y descubra cómo podemos aportar valor a cada faceta de su negocio.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-4 mb-10 justify-center" id="filter-container" data-aos="fade-up" data-aos-delay="100">
+                    <button class="filter-btn active px-6 py-2 rounded-full border border-gray-300 text-sm font-semibold uppercase tracking-wide" data-filter="all">Todos los Servicios</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-sm font-semibold uppercase tracking-wide text-gray-600 bg-white hover:border-brand-gold hover:text-brand-navy" data-filter="legal">Jurídicos & Fiscales</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-sm font-semibold uppercase tracking-wide text-gray-600 bg-white hover:border-brand-gold hover:text-brand-navy" data-filter="tech">Tecnología & Software</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-sm font-semibold uppercase tracking-wide text-gray-600 bg-white hover:border-brand-gold hover:text-brand-navy" data-filter="marketing">Agencia Creativa</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="service-list-container">
+                    </div>
+            </div>
+        </section>
+
+        <section id="paquetes" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-16 text-center" data-aos="fade-up">
+                    <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">Soluciones Integrales Estructuradas</h2>
+                    <p class="text-brand-muted text-lg max-w-3xl mx-auto">
+                        Basados en el análisis del mercado corporativo, hemos estructurado paquetes estratégicos que combinan tecnología, marketing y protección legal para maximizar su eficiencia operativa.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                    <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-xl transition-all relative overflow-hidden group" data-aos="flip-left" data-aos-delay="0">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-brand-light rounded-bl-full flex items-start justify-end p-3"><i class="fas fa-rocket text-brand-navy group-hover:scale-110 transition-transform"></i></div>
+                        <h3 class="text-xl font-bold text-brand-navy mb-2">Emprendedor Legal & Digital</h3>
+                        <p class="text-sm text-gray-500 mb-6 h-10">Ideal para nuevos emprendimientos que requieren estructura formal y presencia online inmediata.</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Constitución de Sociedad y Poderes</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Diseño de Identidad Visual (Logo)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Landing Page Corporativa Optimizada</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Registro de Marca ante el CNR</span></li>
+                        </ul>
+                        <a href="#contacto" class="block text-center w-full py-3 text-sm font-bold border border-brand-navy text-brand-navy rounded hover:bg-brand-navy hover:text-white transition-colors">Solicitar Información</a>
+                    </div>
+
+                    <div class="bg-brand-navy rounded-2xl border border-brand-navy p-8 transform lg:-translate-y-4 shadow-2xl relative overflow-hidden" data-aos="flip-left" data-aos-delay="150">
+                        <div class="absolute top-0 right-0 bg-brand-gold text-brand-navy text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-bl-lg">Más Solicitado</div>
+                        <h3 class="text-xl font-bold text-white mb-2 mt-4">Transformación & E-Commerce</h3>
+                        <p class="text-sm text-gray-300 mb-6 h-10">Lleve sus ventas a internet cumpliendo rigurosamente la normativa de El Salvador.</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-gray-200">Desarrollo E-commerce con pasarela local</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-gray-200">Redacción T&C y Políticas de Privacidad</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-gray-200">Integración con Facturación Electrónica</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-gray-200">Producción de Video Comercial de Lanzamiento</span></li>
+                        </ul>
+                        <a href="#contacto" class="block text-center w-full py-3 text-sm font-bold bg-brand-gold text-brand-navy rounded hover:bg-yellow-500 transition-colors shadow-lg">Agendar Consultoría</a>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-xl transition-all relative overflow-hidden group" data-aos="flip-left" data-aos-delay="300">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-brand-light rounded-bl-full flex items-start justify-end p-3"><i class="fas fa-sync text-brand-navy group-hover:scale-110 transition-transform"></i></div>
+                        <h3 class="text-xl font-bold text-brand-navy mb-2">Cobertura Continua "G&G 360"</h3>
+                        <p class="text-sm text-gray-500 mb-6 h-10">Un ecosistema permanente para empresas que buscan delegar operaciones especializadas.</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Gestión Contable completa y DGII</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Administración de Redes (Incluye Reels Pro)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Soporte Técnico Cloud y mantenimiento Web</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-brand-gold mt-1 mr-3"></i><span class="text-sm text-brand-navy">Asesoría legal preventiva ilimitada</span></li>
+                        </ul>
+                        <a href="#contacto" class="block text-center w-full py-3 text-sm font-bold border border-brand-navy text-brand-navy rounded hover:bg-brand-navy hover:text-white transition-colors">Solicitar Información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-brand-light border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div data-aos="fade-right">
+                        <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">Proyección de Impacto y Mitigación de Riesgos</h2>
+                        <p class="text-brand-muted text-lg mb-6 leading-relaxed">
+                            Cuando una empresa contrata proveedores digitales informales o fragmentados, el crecimiento suele estar acompañado de una alta exposición a contingencias legales (Propiedad Intelectual, Datos Personales, Impuestos).
+                        </p>
+                        <p class="text-brand-navy font-medium text-sm p-4 bg-brand-gold/15 border-l-4 border-brand-gold rounded-r shadow-sm">
+                            Al centralizar Tecnología, Marketing y el riguroso control Jurídico-Contable de G&G, nuestra proyección demuestra cómo los riesgos operativos decrecen significativamente mientras su infraestructura digital escala de forma segura.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100" data-aos="fade-left">
+                        <div class="chart-container">
+                            <canvas id="impactChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-slate-50 border border-gray-200 rounded-3xl overflow-hidden shadow-xl flex flex-col lg:flex-row" data-aos="zoom-in">
+                    <div class="w-full lg:w-5/12 bg-brand-navy text-white p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 right-0 -mt-10 -mr-10 text-white/5 pointer-events-none">
+                            <i class="fas fa-scale-balanced text-9xl"></i>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-2">G&G ACOFIN, S.A. DE C.V.</h3>
+                            <p class="text-brand-gold font-medium mb-8">Auditores | Contadores | Abogados</p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <i class="fas fa-location-dot mt-1.5 text-brand-gold w-6"></i>
+                                    <p class="text-gray-300 font-light text-sm leading-relaxed">
+                                        19 Av. Norte, #64, Residencial Santa Teresa,<br>
+                                        Santa Tecla, La Libertad Sur, La Libertad,<br>
+                                        El Salvador.
+                                    </p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-brand-gold w-6"></i>
+                                    <p class="text-gray-300 font-light text-sm">gyg.acofin@gmail.com</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-phone text-brand-gold w-6"></i>
+                                    <p class="text-gray-300 font-light text-sm">(503) 2564-5640 / 2270-3495</p>
+                                </div>
+                                <div class="flex items-center pt-4 border-t border-white/20 mt-4">
+                                    <i class="fas fa-user-tie text-brand-gold w-6"></i>
+                                    <p class="text-white font-medium text-sm">Lic. Jorge Alberto García<br><span class="text-gray-400 font-light text-xs">Representante Legal</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-7/12 p-10 lg:p-14 bg-white">
+                        <h3 class="text-2xl font-bold text-brand-navy mb-6">Agende su consulta o auditoría integral</h3>
+                        <form onsubmit="event.preventDefault(); alert('Mensaje enviado con éxito. Un asesor de G&G Acofin se comunicará con usted pronto.'); this.reset();">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre o Empresa *</label>
+                                    <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors bg-gray-50 outline-none">
+                                </div>
+                                <div>
+                                    <label for="telefono" class="block text-sm font-medium text-gray-700 mb-2">Teléfono *</label>
+                                    <input type="tel" id="telefono" name="telefono" required class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors bg-gray-50 outline-none">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="correo" class="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico *</label>
+                                <input type="email" id="correo" name="correo" required class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors bg-gray-50 outline-none">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="servicio" class="block text-sm font-medium text-gray-700 mb-2">Área de Interés Principal</label>
+                                <select id="servicio" name="servicio" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors bg-gray-50 outline-none">
+                                    <option value="" disabled selected>Seleccione un área...</option>
+                                    <option value="legal">Servicios Jurídicos y Fiscales</option>
+                                    <option value="software">Desarrollo de Software / E-commerce</option>
+                                    <option value="marketing">Producción Creativa y Redes</option>
+                                    <option value="paquete">Soluciones Integrales / Paquetes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-2">¿Cómo podemos ayudarle?</label>
+                                <textarea id="mensaje" name="mensaje" rows="4" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold transition-colors bg-gray-50 outline-none resize-none"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-brand-navy text-white font-bold py-4 px-6 rounded-md hover:bg-brand-gold transition-colors shadow-lg">
+                                Solicitar Contacto Formal
+                            </button>
+                            
+                            <p class="text-xs text-gray-500 mt-4 text-center">
+                                <i class="fas fa-lock mr-1"></i> Su información es tratada bajo estricto secreto profesional.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-brand-navy text-gray-400 py-12 border-t border-brand-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+            <div>
+                <div class="font-serif font-black text-2xl tracking-tighter text-white opacity-90 mb-2">
+                    G&G<span class="text-brand-gold">.</span><span class="font-sans font-light text-xl tracking-widest text-gray-400 ml-1">ACOFIN</span>
+                </div>
+                <p class="text-sm">Abogados · Contadores · Agencia Tech & Creativa</p>
+            </div>
+            
+            <div class="flex space-x-6 text-xl">
+                <a href="#" class="hover:text-brand-gold transition-colors" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                    <span class="sr-only">LinkedIn</span>
+                </a>
+                <a href="#" class="hover:text-brand-gold transition-colors" aria-label="Instagram">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                    <span class="sr-only">Instagram</span>
+                </a>
+                <a href="#" class="hover:text-brand-gold transition-colors" aria-label="Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                    <span class="sr-only">Facebook</span>
+                </a>
+            </div>
+
+            <div class="text-sm text-gray-500">
+                &copy; 2026 G&G ACOFIN S.A. DE C.V.<br> Todos los derechos reservados.<br>
+                El Salvador, Centroamérica.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Base de Datos Unificada (SÓLO OFERTAS, SIN PRECIOS)
+        const serviceData = [
+            // ÁREA JURÍDICA Y FISCAL
+            { category: 'legal', title: 'Representación ante DGII', desc: 'Defensa por infracciones, problemas de notificación o impuestos ante el Ministerio de Hacienda.', icon: 'fa-landmark' },
+            { category: 'legal', title: 'Constitución de Sociedades y ONG', desc: 'Formalización de empresas, asociaciones y obtención de permisos de funcionamiento.', icon: 'fa-building' },
+            { category: 'legal', title: 'Gestión Inmobiliaria y Notariado', desc: 'Compraventa de inmuebles, cálculo de impuestos a transferencia, poderes y promesas de venta.', icon: 'fa-house-flag' },
+            { category: 'legal', title: 'Sucesiones y Trámites Generales', desc: 'Gestión completa de sucesiones hereditarias, contratos profesionales y trámites vehiculares.', icon: 'fa-file-signature' },
+            { category: 'legal', title: 'Auditoría Legal-Tech', desc: 'Redacción de Términos, Condiciones y Políticas de Privacidad cumpliendo Ley de Comercio Electrónico y LPD.', icon: 'fa-user-shield' },
+            { category: 'legal', title: 'Propiedad Intelectual', desc: 'Contratos de transferencia de código fuente, cesión de imagen y registro de marcas (CNR).', icon: 'fa-copyright' },
+            
+            // ÁREA TECH Y SOFTWARE
+            { category: 'tech', title: 'Plataformas E-commerce', desc: 'Desarrollo de tiendas virtuales avanzadas con integración a pasarelas de pago locales.', icon: 'fa-cart-shopping' },
+            { category: 'tech', title: 'Desarrollo Web Corporativo', desc: 'Landing pages optimizadas y sitios institucionales autoadministrables.', icon: 'fa-laptop-code' },
+            { category: 'tech', title: 'Integración Tributaria (Hacienda)', desc: 'Conexión de sus sistemas actuales con la API de Facturación Electrónica requerida por la ley.', icon: 'fa-file-invoice-dollar' },
+            { category: 'tech', title: 'Sistemas a la Medida y Apps', desc: 'Aplicaciones móviles, Dashboards (BI) y sistemas de control de inventario en la nube.', icon: 'fa-mobile-screen' },
+            { category: 'tech', title: 'Automatización e IA', desc: 'Implementación de Chatbots inteligentes para WhatsApp enfocados en ventas y servicio al cliente.', icon: 'fa-robot' },
+            
+            // ÁREA CREATIVA Y MARKETING
+            { category: 'marketing', title: 'Producción Audiovisual High-End', desc: 'Grabación de comerciales con equipo cinematográfico, tomas con dron y edición 4K.', icon: 'fa-video' },
+            { category: 'marketing', title: 'Contenido Vertical para Redes', desc: 'Estrategias y grabación masiva de videos optimizados para TikTok e Instagram Reels.', icon: 'fa-mobile-screen-button' },
+            { category: 'marketing', title: 'Gestión de Pauta (Ads) y SEO', desc: 'Configuración y optimización de campañas en Meta/Google Ads y posicionamiento orgánico.', icon: 'fa-chart-line' },
+            { category: 'marketing', title: 'Manejo de Redes e Identidad', desc: 'Diseño de identidad visual (logos) y administración mensual de perfiles sociales.', icon: 'fa-pen-nib' },
+            { category: 'marketing', title: 'Gestión de Influencers', desc: 'Coordinación con creadores locales asegurando métricas reales y contratos formales.', icon: 'fa-users-viewfinder' }
+        ];
+
+        // Función para renderizar el catálogo sin mostrar precios
+        function renderServices(filter) {
+            const container = document.getElementById('service-list-container');
+            container.innerHTML = ''; 
+            
+            let filteredData = serviceData;
+            if (filter !== 'all') {
+                filteredData = serviceData.filter(item => item.category === filter);
+            }
+
+            filteredData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'service-card-anim bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow';
+                div.style.animationDelay = `${index * 0.05}s`;
+                
+                let catColor = '';
+                let catLabel = '';
+                if(item.category === 'legal') { catColor = 'text-brand-gold'; catLabel = 'JURÍDICO & FISCAL'; }
+                if(item.category === 'tech') { catColor = 'text-blue-600'; catLabel = 'SOFTWARE & TECH'; }
+                if(item.category === 'marketing') { catColor = 'text-pink-600'; catLabel = 'AGENCIA CREATIVA'; }
+
+                div.innerHTML = `
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center border border-gray-100 ${catColor}">
+                            <i class="fas ${item.icon} text-xl"></i>
+                        </div>
+                        <div class="ml-4 pt-1">
+                            <span class="text-[10px] uppercase font-bold tracking-wider ${catColor}">${catLabel}</span>
+                            <h4 class="font-bold text-brand-navy mt-1 leading-tight">${item.title}</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-brand-muted leading-relaxed">${item.desc}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Inicializar gráfico de Impacto (Risk Mitigation)
+        function initImpactChart() {
+            const canvas = document.getElementById('impactChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mes 1 (Setup)', 'Mes 3', 'Mes 6', 'Mes 9', 'Mes 12 (Ecosistema)'],
+                    datasets: [
+                        {
+                            label: 'Crecimiento Operativo y Digital',
+                            data: [10, 30, 60, 85, 100],
+                            borderColor: '#d4af37',
+                            backgroundColor: 'rgba(212, 175, 55, 0.15)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Riesgo Legal / Contingencias (DGII)',
+                            data: [80, 50, 25, 10, 5],
+                            borderColor: '#0f172a',
+                            borderWidth: 3,
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { family: 'Inter', size: 12 }, usePointStyle: true, boxWidth: 8, padding: 20 }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleFont: { family: 'Inter' },
+                            bodyFont: { family: 'Inter' },
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ' (Tendencia)';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { display: false } 
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'Inter', size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar Animate On Scroll (AOS)
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
+
+            // Lógica del Menú Móvil
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const navbar = document.getElementById('navbar');
+
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.replace('fa-xmark', 'fa-bars');
+                } else {
+                    icon.classList.replace('fa-bars', 'fa-xmark');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+                });
+            });
+
+            // Efecto scroll en Navbar
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    navbar.classList.add('shadow-sm');
+                    navbar.classList.replace('py-4', 'py-2');
+                } else {
+                    navbar.classList.remove('shadow-sm');
+                    navbar.classList.replace('py-2', 'py-4');
+                }
+            });
+
+            // Lógica de Filtros del Catálogo
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-brand-navy', 'text-brand-gold', 'border-brand-navy');
+                        b.classList.add('bg-white', 'text-gray-600', 'border-gray-300');
+                    });
+                    
+                    e.target.classList.remove('bg-white', 'text-gray-600', 'border-gray-300');
+                    e.target.classList.add('active', 'bg-brand-navy', 'text-brand-gold', 'border-brand-navy');
+                    
+                    const filter = e.target.getAttribute('data-filter');
+                    renderServices(filter);
+                });
+            });
+
+            // Carga inicial
+            renderServices('all');
+            initImpactChart();
+        });
+    </script>
+</body>
+</html>
